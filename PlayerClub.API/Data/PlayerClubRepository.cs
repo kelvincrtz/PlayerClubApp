@@ -37,6 +37,20 @@ namespace PlayerClub.API.Data
             return players;
         }
 
+        public async Task<Team> GetTeam(string name)
+        {
+            var team = await _context.Teams.FirstOrDefaultAsync(x => x.Name == name);
+
+            return team;
+        }
+
+        public async Task<IEnumerable<Team>> GetTeams()
+        {
+            var teams = await _context.Teams.ToListAsync();
+
+            return teams;
+        }
+
         public async Task<Player> RegisterPlayer(Player player)
         {
             await _context.Players.AddAsync(player);

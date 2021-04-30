@@ -14,5 +14,7 @@ namespace PlayerClub.API.Data
         Task<bool> TeamExists(string teamname);
         Task<Player> GetPlayer(int id);
         Task<IEnumerable<Player>> GetPlayers();
+        Task<Team> GetTeam(string name);
+        Task<IEnumerable<Team>> GetTeams();
     }
 }

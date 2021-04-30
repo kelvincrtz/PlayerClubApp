@@ -9,6 +9,7 @@ namespace PlayerClub.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<PlayerForRegisterDto, Player>();
+            CreateMap<TeamForRegisterDto, Team>();
         }
     }
 }
