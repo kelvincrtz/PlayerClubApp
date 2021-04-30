@@ -1,8 +1,9 @@
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using PlayerClub.API.Data;
+using PlayerClub.API.Dtos;
+using PlayerClub.API.Models;
 
 namespace PlayerClub.API.Controllers
 {
@@ -10,26 +11,38 @@ namespace PlayerClub.API.Controllers
     [ApiController]
     public class PlayersController : ControllerBase
     {
-        private readonly DataContext _context;
-        public PlayersController(DataContext context)
+        private readonly IPlayerClubRepository _repo;
+        private readonly IMapper _mapper;
+        public PlayersController(IPlayerClubRepository repo, IMapper mapper)
         {
-            _context = context;
+            _mapper = mapper;
+            _repo = repo;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetPlayers()
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] PlayerForRegisterDto playerForRegisterDto)
         {
-            var players = await _context.Players.ToListAsync();
+            var playerToCreate = _mapper.Map<Player>(playerForRegisterDto);
 
-            return Ok(players);
-        }   
-        
-        [HttpGet("{id}")]
+            var createdPlayer = await _repo.RegisterPlayer(playerToCreate);
+
+            return CreatedAtRoute("GetPlayer", new {id = createdPlayer.Id}, createdPlayer);
+        }
+
+        [HttpGet("{id}", Name = "GetPlayer")]
         public async Task<IActionResult> GetPlayer(int id)
         {
-            var player = await _context.Players.FirstOrDefaultAsync(x => x.Id == id);
+            var player = await _repo.GetPlayer(id);
 
             return Ok(player);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetPlayers()
+        {
+            var players = await _repo.GetPlayers();
+
+            return Ok(players);
         }
     }
 }

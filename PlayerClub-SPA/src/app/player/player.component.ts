@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { PlayerService } from '../_services/player.service';
 
 @Component({
   selector: 'app-player',
@@ -9,19 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class PlayerComponent implements OnInit {
   players: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private playerService: PlayerService) { }
 
   ngOnInit() {
-    this.getPlayers();
+
   }
 
   getPlayers() {
-    // tslint:disable-next-line: deprecation
-    this.http.get('http://localhost:5000/api/players').subscribe(response => {
-      this.players = response;
-    }, error => {
-      console.log(error);
-    });
+
   }
 
 }

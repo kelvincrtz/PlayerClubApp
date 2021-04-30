@@ -1,0 +1,39 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Sign up a Player</h2>
+  <hr>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('name').errors && registerForm.get('name').touched}" 
+      class="form-control" formControlName="name" placeholder="Name">
+    <div class="invalid-feedback">Please write your name</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('birthdate').errors && registerForm.get('birthdate').touched}" 
+      class="form-control" formControlName="birthdate" placeholder="Date of Birth" type="date">
+    <div class="invalid-feedback">Please fill your birthdate</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('height').errors && registerForm.get('height').touched}"
+      class="form-control" formControlName="height" placeholder="Height">
+    <div class="invalid-feedback">Please write in your height</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('weight').errors && registerForm.get('weight').touched}"
+      class="form-control" formControlName="weight" placeholder="Weight">
+    <div class="invalid-feedback">Please write in your weight</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('placeofbirth').errors && registerForm.get('placeofbirth').touched}"
+      class="form-control" formControlName="placeofbirth" placeholder="Place of Birth">
+    <div class="invalid-feedback">Please write in your place of birth</div>
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="!registerForm.valid" type="submit">Register</button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>
