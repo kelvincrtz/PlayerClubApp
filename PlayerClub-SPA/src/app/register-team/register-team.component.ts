@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Team } from '../_models/team';
 import { TeamService } from '../_services/team.service';
 
@@ -13,7 +14,7 @@ export class RegisterTeamComponent implements OnInit {
   team: Team;
   registerForm: FormGroup;
 
-  constructor(private teamService: TeamService, private fb: FormBuilder) { }
+  constructor(private teamService: TeamService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.createRegisterForm();
@@ -36,6 +37,8 @@ export class RegisterTeamComponent implements OnInit {
         console.log('Registration successful');
       }, error => {
         console.log(error);
+      }, () => {
+        this.router.navigate(['/teams']);
       });
     }
   }

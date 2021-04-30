@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,25 @@ namespace PlayerClub.API.Controllers
             var players = await _repo.GetPlayers();
 
             return Ok(players);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> SignPlayerToATeam(int playerId, SignPlayerToATeamDto signPlayerToATeamDto)
+        {
+            var playerFromRepo = await _repo.GetPlayer(playerId);
+
+            if (playerFromRepo == null)
+                return BadRequest();
+
+            _mapper.Map(signPlayerToATeamDto, playerFromRepo);
+            // *IMPORTANT* Be careful here. Make sure no await, no task. 
+            // Just classes or else mapping exception eventhough 
+            // you have already did automapper mapping
+
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating player {playerFromRepo.Id} failed on save");
         }
     }
 }

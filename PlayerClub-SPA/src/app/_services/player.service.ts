@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Player } from '../_models/player';
 
 @Injectable({
@@ -12,6 +13,14 @@ export class PlayerService {
 
   register(player: Player) {
     return this.http.post(this.baseUrl + 'register', player);
+  }
+
+  getPlayer(id): Observable<Player> {
+    return this.http.get<Player>(this.baseUrl + id);
+  }
+
+  getPlayers(): Observable<Player[]> {
+    return this.http.get<Player[]>(this.baseUrl);
   }
 
 }

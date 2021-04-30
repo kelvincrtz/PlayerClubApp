@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Player } from '../_models/player';
 import { PlayerService } from '../_services/player.service';
 
@@ -13,7 +14,7 @@ export class RegisterPlayerComponent implements OnInit {
   player: Player;
   registerForm: FormGroup;
 
-  constructor(private playerService: PlayerService, private fb: FormBuilder) { }
+  constructor(private playerService: PlayerService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.createRegisterForm();
@@ -36,6 +37,8 @@ export class RegisterPlayerComponent implements OnInit {
         console.log('Registration successful');
       }, error => {
         console.log(error);
+      }, () => {
+        this.router.navigate(['/players']);
       });
     }
   }
