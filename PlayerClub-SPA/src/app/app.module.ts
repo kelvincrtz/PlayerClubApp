@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayerService } from './_services/player.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterPlayerComponent } from './register-player/register-player.component';
+import { RegisterTeamComponent } from './register-team/register-team.component';
+import { TeamService } from './_services/team.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { RegisterPlayerComponent } from './register-player/register-player.compo
     PlayerComponent,
     NavComponent,
     HomeComponent,
-    RegisterPlayerComponent
+    RegisterPlayerComponent,
+    RegisterTeamComponent
    ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import { RegisterPlayerComponent } from './register-player/register-player.compo
     ReactiveFormsModule
   ],
   providers: [
-    PlayerService
+    PlayerService,
+    TeamService
   ],
   bootstrap: [AppComponent]
 })

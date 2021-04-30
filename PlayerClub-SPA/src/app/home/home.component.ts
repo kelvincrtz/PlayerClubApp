@@ -19,11 +19,15 @@ export class HomeComponent implements OnInit {
   }
 
   registerTeamToggle() {
-    this.registerTeamMode = !this.registerTeamMode;
+    this.registerTeamMode = true;
   }
 
   cancelRegisterPlayerMode(registerPlayerMode: boolean) {
     this.registerPlayerMode = registerPlayerMode;
+  }
+
+  cancelRegisterTeamMode(registerTeamMode: boolean) {
+    this.registerTeamMode = registerTeamMode;
   }
 
 }

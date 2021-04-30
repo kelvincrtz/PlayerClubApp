@@ -1,0 +1,39 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Sign up a Team</h2>
+  <hr>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('name').errors && registerForm.get('name').touched}" 
+      class="form-control" formControlName="name" placeholder="Name">
+    <div class="invalid-feedback">Team name is required</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('ground').errors && registerForm.get('ground').touched}" 
+      class="form-control" formControlName="ground" placeholder="Ground">
+    <div class="invalid-feedback">Ground is required</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('coach').errors && registerForm.get('coach').touched}"
+      class="form-control" formControlName="coach" placeholder="Coach">
+    <div class="invalid-feedback">Coach is required</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('foundedYear').errors && registerForm.get('foundedYear').touched}"
+      class="form-control" formControlName="foundedYear" placeholder="Year Founded" type="date">
+    <div class="invalid-feedback">Founded Year is required</div>
+  </div>
+
+  <div class="form-group">
+    <input type="text" [ngClass]="{'is-invalid': registerForm.get('region').errors && registerForm.get('region').touched}"
+      class="form-control" formControlName="region" placeholder="Region">
+    <div class="invalid-feedback">Please write in your region</div>
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="!registerForm.valid" type="submit">Register</button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>

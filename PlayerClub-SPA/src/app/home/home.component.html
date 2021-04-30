@@ -1,10 +1,10 @@
 <div class="container mt-5">
-  <div *ngIf="!registerPlayerMode" style="text-align: center">
+  <div *ngIf="!registerPlayerMode && !registerTeamMode" style="text-align: center">
     <h1>Player Management System</h1>
     <p class="lead">Register a team or register a player!</p>
     <div class="text-center">
       <button class="btn btn-primary btn-lg mr-2" (click)="registerPlayerToggle()">Register a player</button>
-      <button class="btn btn-info btn-lg">Register a team</button>
+      <button class="btn btn-info btn-lg" (click)="registerTeamToggle()">Register a team</button>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
   <div *ngIf="registerTeamMode" class="container">
     <div class="row justify-content-center">
       <div class="col-4">
-        <app-register-player></app-register-player>
+        <app-register-team (cancelRegister)="cancelRegisterTeamMode($event)"></app-register-team>
       </div>
     </div>
   </div>
