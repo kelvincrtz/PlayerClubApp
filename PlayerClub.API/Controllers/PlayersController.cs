@@ -46,23 +46,21 @@ namespace PlayerClub.API.Controllers
             return Ok(players);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> SignPlayerToATeam(int playerId, SignPlayerToATeamDto signPlayerToATeamDto)
+        [HttpPost("signplayertoteam")]
+        public async Task<IActionResult> PlayerTeamSignUp(string teamName, SignPlayerToATeamDto signPlayerToATeamDto)
         {
-            var playerFromRepo = await _repo.GetPlayer(playerId);
+            var teamFromRepo = await _repo.GetTeam(teamName);
 
-            if (playerFromRepo == null)
-                return BadRequest();
+            var player = _mapper.Map<Player>(signPlayerToATeamDto);
 
-            _mapper.Map(signPlayerToATeamDto, playerFromRepo);
-            // *IMPORTANT* Be careful here. Make sure no await, no task. 
-            // Just classes or else mapping exception eventhough 
-            // you have already did automapper mapping
+            teamFromRepo.Player.Add(player);
 
-            if(await _repo.SaveAll())
-                return NoContent();
-
-            throw new Exception($"Updating player {playerFromRepo.Id} failed on save");
+            if (await _repo.SaveAll()) {
+                return CreatedAtRoute("GetPlayer", new {id = player.Id}, player);
+            }
+            
+            throw new Exception("Creating Sign Player to a Team failed on save");
         }
+
     }
 }

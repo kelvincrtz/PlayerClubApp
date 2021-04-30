@@ -10,6 +10,7 @@ namespace PlayerClub.API.Helpers
         {
             CreateMap<PlayerForRegisterDto, Player>();
             CreateMap<TeamForRegisterDto, Team>();
+            CreateMap<SignPlayerToATeamDto, Player>();
         }
     }
 }
