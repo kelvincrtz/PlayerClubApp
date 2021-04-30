@@ -2,19 +2,19 @@
   <div class="row">
     <table class="table table-hover" style="cursor: pointer">
       <tr>
-        <th style="width: 15%">Name</th>
+        <th style="width: 10%">Name</th>
         <th style="width: 10%">Ground</th>
-        <th style="width: 20%">Coach</th>
-        <th style="width: 15%">Founded Year</th>
+        <th style="width: 10%">Coach</th>
+        <th style="width: 10%">Founded Year</th>
         <th style="width: 10%">Region</th>
         <th style="width: 10%">Players</th>
       </tr>
       <tr *ngFor="let team of teams">
-        <td>{{team.name}}</td>
-        <td>{{team.ground}}</td>
-        <td>{{team.coach}}</td>
-        <td>{{team.foundedYear | date:'mediumDate'}}</td>
-        <td>{{team.region}}</td>
+        <td class="text-capitalize">{{team.name}}</td>
+        <td class="text-capitalize">{{team.ground}}</td>
+        <td class="text-capitalize">{{team.coach}}</td>
+        <td class="text-capitalize">{{team.foundedYear | date:'yyyy'}}</td>
+        <td class="text-capitalize">{{team.region}}</td>
         <td>
           <button class="btn btn-success" (click)="viewPlayers(team.name)">View Players</button>
         </td>

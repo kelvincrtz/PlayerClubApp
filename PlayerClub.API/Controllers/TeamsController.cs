@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -22,17 +23,29 @@ namespace PlayerClub.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] TeamForRegisterDto teamForRegisterDto)
         {
+            teamForRegisterDto.Name = teamForRegisterDto.Name.ToLower();
+
+            if (await _repo.TeamExists(teamForRegisterDto.Name))
+                return BadRequest("Team already exists");
+
             var teamToCreate = _mapper.Map<Team>(teamForRegisterDto);
 
             var createdTeam = await _repo.RegisterTeam(teamToCreate);
 
-            return CreatedAtRoute("GetTeam", new {name = createdTeam.Name}, createdTeam);
+            if (await _repo.SaveAll()) {
+                return CreatedAtRoute("GetTeam", new {name = createdTeam.Name}, createdTeam);
+            }
+            
+            throw new Exception("Registration of team failed on save");
         }
 
         [HttpGet("{name}", Name = "GetTeam")]
         public async Task<IActionResult> GetTeam(string name)
         {
-            var team = await _repo.GetTeam(name);
+            var team = await _repo.GetTeam(name.ToLower());
+
+            if (team == null)
+                return BadRequest("Team doesn't exist.");
 
             return Ok(team);
         }
@@ -41,6 +54,9 @@ namespace PlayerClub.API.Controllers
         public async Task<IActionResult> GetTeams()
         {
             var teams = await _repo.GetTeams();
+
+            if (teams == null)
+                return BadRequest("There are no teams in the system");
 
             return Ok(teams);
         }

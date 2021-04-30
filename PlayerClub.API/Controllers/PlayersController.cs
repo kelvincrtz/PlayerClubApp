@@ -27,13 +27,20 @@ namespace PlayerClub.API.Controllers
 
             var createdPlayer = await _repo.RegisterPlayer(playerToCreate);
 
-            return CreatedAtRoute("GetPlayer", new {id = createdPlayer.Id}, createdPlayer);
+            if (await _repo.SaveAll()) {
+                return CreatedAtRoute("GetPlayer", new {id = createdPlayer.Id}, createdPlayer);
+            }
+
+            throw new Exception("Registration of player failed on save");
         }
 
         [HttpGet("{id}", Name = "GetPlayer")]
         public async Task<IActionResult> GetPlayer(int id)
         {
             var player = await _repo.GetPlayer(id);
+
+            if (player == null)
+                return BadRequest("Player doesn't exist.");
 
             return Ok(player);
         }
@@ -43,20 +50,28 @@ namespace PlayerClub.API.Controllers
         {
             var players = await _repo.GetPlayers();
 
+            if (players == null)
+                return BadRequest("There are no players in the system.");
+
             return Ok(players);
         }
 
-        [HttpPost("signplayertoteam")]
-        public async Task<IActionResult> PlayerTeamSignUp(string teamName, SignPlayerToATeamDto signPlayerToATeamDto)
+        [HttpPost("signplayertoteam/{teamname}/{playernumber}")]
+        public async Task<IActionResult> PlayerTeamSignUp(string teamname, int playernumber)
         {
-            var teamFromRepo = await _repo.GetTeam(teamName);
+            var teamFromRepo = await _repo.GetTeam(teamname);
+            var playerFromRepo = await _repo.GetPlayer(playernumber);
 
-            var player = _mapper.Map<Player>(signPlayerToATeamDto);
+            if (teamFromRepo == null)
+                return BadRequest("No team has been found.");
 
-            teamFromRepo.Player.Add(player);
+            if (playerFromRepo == null)
+                return BadRequest("No player has been found.");
+
+            teamFromRepo.Player.Add(playerFromRepo);
 
             if (await _repo.SaveAll()) {
-                return CreatedAtRoute("GetPlayer", new {id = player.Id}, player);
+                return CreatedAtRoute("GetPlayer", new {id = playerFromRepo.Id}, playerFromRepo);
             }
             
             throw new Exception("Creating Sign Player to a Team failed on save");

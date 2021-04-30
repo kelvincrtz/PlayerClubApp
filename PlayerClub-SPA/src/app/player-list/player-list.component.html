@@ -12,11 +12,11 @@
       </tr>
       <tr *ngFor="let player of players">
         <td>{{player.id}}</td>
-        <td>{{player.name}}</td>
-        <td>{{player.birthdate | date:'mediumDate'}}</td>
+        <td class="text-capitalize">{{player.name}}</td>
+        <td class="text-capitalize">{{player.birthdate | date:'mediumDate'}}</td>
         <td>{{player.height}}</td>
         <td>{{player.weight}}</td>
-        <td>{{player.placeOfBirth}}</td>
+        <td class="text-capitalize">{{player.placeOfBirth}}</td>
         <td>
           <button class="btn btn-success" (click)="viewTeam(player.id)">View Team</button>
         </td>
