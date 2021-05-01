@@ -1,3 +1,20 @@
-<p>
-  {{player.name}}
-</p>
+<div class="row">
+  <table class="table table-hover" style="cursor: pointer">
+    <tr>
+      <th style="width: 10%">Number</th>
+      <th style="width: 10%">Name</th>
+      <th style="width: 10%">Birthdate</th>
+      <th style="width: 10%">Height</th>
+      <th style="width: 10%">Weight</th>
+      <th style="width: 15%">Place of Birth</th>
+    </tr>
+    <tr>
+      <td >{{player.id}}</td>
+      <td class="text-capitalize">{{player.name}}</td>
+      <td class="text-capitalize">{{player.birthdate | date:'mediumDate'}}</td>
+      <td>{{player.height}}</td>
+      <td>{{player.weight}}</td>
+      <td class="text-capitalize">{{player.placeOfBirth}}</td>
+    </tr>
+  </table>
+</div>

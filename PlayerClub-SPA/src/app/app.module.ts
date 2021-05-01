@@ -21,7 +21,7 @@ import { TeamDetailResolver } from './_resolvers/team-detail.resolver';
 import { TeamPlayerListComponent } from './team-player-list/team-player-list.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
@@ -31,7 +31,7 @@ import { TeamPlayerListComponent } from './team-player-list/team-player-list.com
     TeamListComponent,
     PlayerTeamViewComponent,
     TeamPlayerViewComponent,
-      TeamPlayerListComponent
+    TeamPlayerListComponent
    ],
   imports: [
     BrowserModule,
