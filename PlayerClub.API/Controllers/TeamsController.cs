@@ -38,7 +38,7 @@ namespace PlayerClub.API.Controllers
             throw new Exception("Registration of team failed on save");
         }
 
-        [HttpGet("{name}", Name = "GetTeam")]
+        [HttpGet("{id}", Name = "GetTeam")]
         public async Task<IActionResult> GetTeam(int id)
         {
             var team = await _repo.GetTeam(id);

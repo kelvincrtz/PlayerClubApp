@@ -1,0 +1,32 @@
+<div class="container p-5">
+  <div class="card font-weight-light mt-2 h-95 p-3">
+    <div class="text-dark">
+  
+      <h2 class="card-header bg-white text-capitalize">{{player.name}}</h2>
+  
+      <div *ngIf="player.team != null" class="card-body">
+        <div class="text-dark">
+          <p class="card-text">Is currently playing for:</p>
+          <h5 class="card-title text-capitalize">Team: {{player.team.name}}</h5>
+          <p class="card-text text-capitalize">Ground: {{player.team.ground}}</p>
+          <p class="card-text text-capitalize">Coach: {{player.team.coach}}</p>
+          <p class="card-text text-capitalize">Founded Year: {{player.team.foundedYear | date:'yyyy'}}</p>
+          <p class="card-text text-capitalize">Region: {{player.team.region}}</p>
+        </div>
+  
+        <button class="btn btn-info btn-block my-2" [routerLink]="['/players/']">Back to Players</button>
+      </div>
+
+      <div *ngIf="player.team == null" class="card-body">
+        <div class="text-dark">
+          <p class="card-text">Is not signed to a team.</p>
+        </div>
+  
+        <button class="btn btn-info btn-block my-2" [routerLink]="['/players/']">Back to Players</button>
+        <button class="btn btn-primary btn-block my-2" [routerLink]="['/players/']">Pick a Team</button>
+      </div>
+
+      <div class="card-footer bg-transparent"><small></small></div>
+    </div>
+  </div>
+</div>

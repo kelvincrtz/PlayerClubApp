@@ -18,7 +18,7 @@
         <td>{{player.weight}}</td>
         <td class="text-capitalize">{{player.placeOfBirth}}</td>
         <td>
-          <button class="btn btn-success" (click)="viewTeam(player.id)">View Team</button>
+          <button class="btn btn-success" [routerLink]="['/playerteamview/', player.id]">View Team</button>
         </td>
       </tr>
     </table>

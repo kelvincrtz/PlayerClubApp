@@ -16,7 +16,7 @@
         <td class="text-capitalize">{{team.foundedYear | date:'yyyy'}}</td>
         <td class="text-capitalize">{{team.region}}</td>
         <td>
-          <button class="btn btn-success" (click)="viewPlayers(team.name)">View Players</button>
+          <button class="btn btn-success" [routerLink]="['/teamplayerview/', team.id]">View Players</button>
         </td>
       </tr>
     </table>

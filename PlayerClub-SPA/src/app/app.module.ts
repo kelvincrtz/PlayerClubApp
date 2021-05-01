@@ -14,17 +14,25 @@ import { TeamService } from './_services/team.service';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { TeamListComponent } from './team-list/team-list.component';
 import { appRoutes } from './routes';
+import { PlayerTeamViewComponent } from './player-team-view/player-team-view.component';
+import { PlayerDetailResolver } from './_resolvers/player-detail.resolver';
+import { TeamPlayerViewComponent } from './team-player-view/team-player-view.component';
+import { TeamDetailResolver } from './_resolvers/team-detail.resolver';
+import { TeamPlayerListComponent } from './team-player-list/team-player-list.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     NavComponent,
     HomeComponent,
     RegisterPlayerComponent,
     RegisterTeamComponent,
     PlayerListComponent,
-    TeamListComponent
-  ],
+    TeamListComponent,
+    PlayerTeamViewComponent,
+    TeamPlayerViewComponent,
+      TeamPlayerListComponent
+   ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -34,7 +42,9 @@ import { appRoutes } from './routes';
   ],
   providers: [
     PlayerService,
-    TeamService
+    TeamService,
+    PlayerDetailResolver,
+    TeamDetailResolver
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,34 @@
+<div class="container p-5">
+  <div class="card font-weight-light mt-2 h-95 p-3">
+    <div class="text-dark">
+  
+      <h2 class="card-header bg-white text-capitalize">{{team.coach}}</h2>
+  
+      <div class="card-body">
+        <div class="text-dark">
+          <p *ngIf="team.players.length == 1" class="card-text">There is {{team.players.length}} player in this team:</p>
+          <p *ngIf="team.players.length > 1" class="card-text">There are {{team.players.length}} players in this team:</p>
+          <div class="row">
+            <div *ngFor="let player of team.players" class="col-lg-2 col-md-3 col-sm-6">
+              <app-team-player-list [player]="player"></app-team-player-list>
+            </div>
+          </div>
+
+        </div>
+  
+        <button class="btn btn-info btn-block my-2" [routerLink]="['/players/']">Back to Players</button>
+      </div>
+
+      <div *ngIf="!team.players.length" class="card-body">
+        <div class="text-dark">
+          <p class="card-text">There are currently no players in this team</p>
+        </div>
+  
+        <button class="btn btn-info btn-block my-2" [routerLink]="['/players/']">Back to Players</button>
+        <button class="btn btn-primary btn-block my-2" [routerLink]="['/players/']">Pick a Team</button>
+      </div>
+
+      <div class="card-footer bg-transparent"><small></small></div>
+    </div>
+  </div>
+</div>
