@@ -4,7 +4,7 @@
       <tr>
         <th style="width: 10%">Number</th>
         <th style="width: 10%">Name</th>
-        <th style="width: 10%">Birthdate</th>
+        <th style="width: 10%">Age</th>
         <th style="width: 10%">Height</th>
         <th style="width: 10%">Weight</th>
         <th style="width: 15%">Place of Birth</th>
@@ -13,7 +13,7 @@
       <tr *ngFor="let player of players">
         <td>{{player.id}}</td>
         <td class="text-capitalize">{{player.name}}</td>
-        <td class="text-capitalize">{{player.birthdate | date:'mediumDate'}}</td>
+        <td class="text-capitalize">{{player.age}}</td>
         <td>{{player.height}}</td>
         <td>{{player.weight}}</td>
         <td class="text-capitalize">{{player.placeOfBirth}}</td>

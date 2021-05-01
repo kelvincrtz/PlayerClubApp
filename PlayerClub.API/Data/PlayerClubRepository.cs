@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PlayerClub.API.Helpers;
 using PlayerClub.API.Models;
 
 namespace PlayerClub.API.Data
@@ -32,11 +33,18 @@ namespace PlayerClub.API.Data
             return player;
         }
 
-        public async Task<IEnumerable<Player>> GetPlayers()
+        public async Task<IEnumerable<Player>> GetPlayers(PlayerParams playerParams)
         {
-            var players = await _context.Players.Include(x => x.Team).ToListAsync();
+            var players =  _context.Players.Include(x => x.Team).AsQueryable();
 
-            return players;
+            if (playerParams.MinAge != 1 || playerParams.MaxAge != 99)
+            {
+                var minDob = DateTime.Today.AddYears(-playerParams.MaxAge - 1);
+                var maxDob = DateTime.Today.AddYears(-playerParams.MinAge);
+                players = players.Where(x=> x.Birthdate >=minDob && x.Birthdate <= maxDob);
+            }
+
+            return await players.ToListAsync();
         }
 
         public async Task<Team> GetTeam(int id)

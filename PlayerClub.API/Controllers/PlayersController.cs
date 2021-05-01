@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PlayerClub.API.Data;
 using PlayerClub.API.Dtos;
+using PlayerClub.API.Helpers;
 using PlayerClub.API.Models;
 
 namespace PlayerClub.API.Controllers
@@ -50,9 +51,9 @@ namespace PlayerClub.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetPlayers()
+        public async Task<IActionResult> GetPlayers([FromQuery]PlayerParams playerParams)
         {
-            var players = await _repo.GetPlayers();
+            var players = await _repo.GetPlayers(playerParams);
 
             if (players == null)
                 return BadRequest("There are no players in the system.");

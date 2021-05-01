@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PlayerClub.API.Helpers;
 using PlayerClub.API.Models;
 
 namespace PlayerClub.API.Data
@@ -13,7 +14,7 @@ namespace PlayerClub.API.Data
         Task<Team> RegisterTeam(Team team);
         Task<bool> TeamExists(string teamname);
         Task<Player> GetPlayer(int id);
-        Task<IEnumerable<Player>> GetPlayers();
+        Task<IEnumerable<Player>> GetPlayers(PlayerParams playerParams);
         Task<Team> GetTeam(int id);
         Task<IEnumerable<Team>> GetTeams();
     }

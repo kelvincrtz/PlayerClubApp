@@ -11,7 +11,9 @@ namespace PlayerClub.API.Helpers
             CreateMap<PlayerForRegisterDto, Player>();
             CreateMap<TeamForRegisterDto, Team>();
             CreateMap<PlayerForTeamUpdateDto, Player>();
-            CreateMap<Player, PlayerForListDto>();
+            CreateMap<Player, PlayerForListDto>()
+                .ForMember(dest => dest.Age, opt => 
+                    opt.MapFrom(src => src.Birthdate.CalculateAge()));;
             CreateMap<Team, TeamForReturnDto>();
             CreateMap<Player, PlayerForDetailedDto>();
         }
