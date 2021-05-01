@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +26,8 @@ namespace PlayerClub.API.Controllers
         public async Task<IActionResult> Register([FromBody] PlayerForRegisterDto playerForRegisterDto)
         {
             var playerToCreate = _mapper.Map<Player>(playerForRegisterDto);
+
+            playerToCreate.Name = playerToCreate.Name.ToLower();
 
             var createdPlayer = await _repo.RegisterPlayer(playerToCreate);
 
@@ -53,28 +57,33 @@ namespace PlayerClub.API.Controllers
             if (players == null)
                 return BadRequest("There are no players in the system.");
 
-            return Ok(players);
+            var playersToReturn = _mapper.Map<IEnumerable<PlayerForListDto>>(players);
+
+            return Ok(playersToReturn);
         }
 
-        [HttpPost("signplayertoteam/{teamname}/{playernumber}")]
-        public async Task<IActionResult> PlayerTeamSignUp(string teamname, int playernumber)
+        [HttpPut("playerforteam/{playerid}/{teamid}")]
+        public async Task<IActionResult> UpdateUserTeam(int playerid, int teamid, PlayerForTeamUpdateDto playerForTeamUpdateDto) 
         {
-            var teamFromRepo = await _repo.GetTeam(teamname);
-            var playerFromRepo = await _repo.GetPlayer(playernumber);
 
-            if (teamFromRepo == null)
-                return BadRequest("No team has been found.");
+            var playerFromRepo = await _repo.GetPlayer(playerid);
+            var teamFromRepo = await _repo.GetTeam(teamid);
 
             if (playerFromRepo == null)
-                return BadRequest("No player has been found.");
-
-            teamFromRepo.Player.Add(playerFromRepo);
-
-            if (await _repo.SaveAll()) {
-                return CreatedAtRoute("GetPlayer", new {id = playerFromRepo.Id}, playerFromRepo);
-            }
+                return BadRequest("Player ID" + playerid + "doesn't exist in the system.");
             
-            throw new Exception("Creating Sign Player to a Team failed on save");
+            if (teamFromRepo == null)
+                return BadRequest("Team ID" + teamid + "doesn't exist in the system.");
+
+            playerForTeamUpdateDto.Team = teamFromRepo;
+            playerForTeamUpdateDto.TeamId = teamFromRepo.Id;
+
+            _mapper.Map(playerForTeamUpdateDto, playerFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+            
+            throw new Exception($"Updating player failed on save");
         }
 
     }

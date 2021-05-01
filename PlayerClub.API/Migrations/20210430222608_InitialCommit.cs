@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PlayerClub.API.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCommit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,9 @@ namespace PlayerClub.API.Migrations
                 name: "Teams",
                 columns: table => new
                 {
-                    Name = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true),
                     Ground = table.Column<string>(nullable: true),
                     Coach = table.Column<string>(nullable: true),
                     FoundedYear = table.Column<DateTime>(nullable: false),
@@ -19,7 +21,7 @@ namespace PlayerClub.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teams", x => x.Name);
+                    table.PrimaryKey("PK_Teams", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,23 +35,23 @@ namespace PlayerClub.API.Migrations
                     Height = table.Column<int>(nullable: false),
                     Weight = table.Column<int>(nullable: false),
                     PlaceOfBirth = table.Column<string>(nullable: true),
-                    TeamName = table.Column<string>(nullable: true)
+                    TeamId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Players", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Players_Teams_TeamName",
-                        column: x => x.TeamName,
+                        name: "FK_Players_Teams_TeamId",
+                        column: x => x.TeamId,
                         principalTable: "Teams",
-                        principalColumn: "Name",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_TeamName",
+                name: "IX_Players_TeamId",
                 table: "Players",
-                column: "TeamName");
+                column: "TeamId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

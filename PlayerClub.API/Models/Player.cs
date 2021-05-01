@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlayerClub.API.Models
 {
@@ -11,6 +12,6 @@ namespace PlayerClub.API.Models
         public int Weight { get; set; }
         public string PlaceOfBirth { get; set; }
         public Team Team { get; set; }
-        public string TeamName { get; set; }
+        public int? TeamId { get; set; }
     }
 }

@@ -34,23 +34,24 @@ namespace PlayerClub.API.Migrations
                     b.Property<string>("PlaceOfBirth")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TeamName")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Weight")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeamName");
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Players");
                 });
 
             modelBuilder.Entity("PlayerClub.API.Models.Team", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Coach")
                         .HasColumnType("TEXT");
@@ -61,10 +62,13 @@ namespace PlayerClub.API.Migrations
                     b.Property<string>("Ground")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Region")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("Teams");
                 });
@@ -72,8 +76,8 @@ namespace PlayerClub.API.Migrations
             modelBuilder.Entity("PlayerClub.API.Models.Player", b =>
                 {
                     b.HasOne("PlayerClub.API.Models.Team", "Team")
-                        .WithMany("Player")
-                        .HasForeignKey("TeamName");
+                        .WithMany("Players")
+                        .HasForeignKey("TeamId");
                 });
 #pragma warning restore 612, 618
         }

@@ -27,28 +27,28 @@ namespace PlayerClub.API.Data
 
         public async Task<Player> GetPlayer(int id)
         {
-            var player = await _context.Players.FirstOrDefaultAsync(x => x.Id == id);
+            var player = await _context.Players.Include(x => x.Team).FirstOrDefaultAsync(x => x.Id == id);
 
             return player;
         }
 
         public async Task<IEnumerable<Player>> GetPlayers()
         {
-            var players = await _context.Players.ToListAsync();
+            var players = await _context.Players.Include(x => x.Team).ToListAsync();
 
             return players;
         }
 
-        public async Task<Team> GetTeam(string name)
+        public async Task<Team> GetTeam(int id)
         {
-            var team = await _context.Teams.FirstOrDefaultAsync(x => x.Name == name);
+            var team = await _context.Teams.Include(x => x.Players).FirstOrDefaultAsync(x => x.Id == id);
 
             return team;
         }
 
         public async Task<IEnumerable<Team>> GetTeams()
         {
-            var teams = await _context.Teams.ToListAsync();
+            var teams = await _context.Teams.Include(x => x.Players).ToListAsync();
 
             return teams;
         }

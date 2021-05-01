@@ -1,24 +1,16 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using PlayerClub.API.Models;
+using System.Collections.Generic;
 
 namespace PlayerClub.API.Dtos
 {
-    public class SignPlayerToATeamDto
+    public class PlayerForListDto
     {
-        [Required]
+        public int Id { get; set; }
         public string Name { get; set; }
-        
-        [Required]
         public DateTime Birthdate { get; set; }
-
-        [Required]
         public int Height { get; set; }
-
-        [Required]
         public int Weight { get; set; }
-
-        [Required]
         public string PlaceOfBirth { get; set; }
+        public TeamForReturnDto Team { get; set; }
     }
 }

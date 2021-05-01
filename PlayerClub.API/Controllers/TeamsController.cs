@@ -26,23 +26,23 @@ namespace PlayerClub.API.Controllers
             teamForRegisterDto.Name = teamForRegisterDto.Name.ToLower();
 
             if (await _repo.TeamExists(teamForRegisterDto.Name))
-                return BadRequest("Team already exists");
+                return BadRequest("Team already exists. Pick a new team name.");
 
             var teamToCreate = _mapper.Map<Team>(teamForRegisterDto);
 
             var createdTeam = await _repo.RegisterTeam(teamToCreate);
 
             if (await _repo.SaveAll()) {
-                return CreatedAtRoute("GetTeam", new {name = createdTeam.Name}, createdTeam);
+                return CreatedAtRoute("GetTeam", new {name = createdTeam.Id}, createdTeam);
             }
             
             throw new Exception("Registration of team failed on save");
         }
 
         [HttpGet("{name}", Name = "GetTeam")]
-        public async Task<IActionResult> GetTeam(string name)
+        public async Task<IActionResult> GetTeam(int id)
         {
-            var team = await _repo.GetTeam(name.ToLower());
+            var team = await _repo.GetTeam(id);
 
             if (team == null)
                 return BadRequest("Team doesn't exist.");

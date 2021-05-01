@@ -10,10 +10,6 @@ namespace PlayerClub.API.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<Player> Players { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<Team>()
-                .HasKey(x => new { x.Name });
-        }
+        protected override void OnModelCreating(ModelBuilder builder) {}
     }
 }
