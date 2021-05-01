@@ -13,6 +13,7 @@ namespace PlayerClub.API.Helpers
             CreateMap<PlayerForTeamUpdateDto, Player>();
             CreateMap<Player, PlayerForListDto>();
             CreateMap<Team, TeamForReturnDto>();
+            CreateMap<Player, PlayerForDetailedDto>();
         }
     }
 }

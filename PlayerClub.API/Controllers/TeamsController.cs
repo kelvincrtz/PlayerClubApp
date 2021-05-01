@@ -32,9 +32,8 @@ namespace PlayerClub.API.Controllers
 
             var createdTeam = await _repo.RegisterTeam(teamToCreate);
 
-            if (await _repo.SaveAll()) {
+            if (await _repo.SaveAll())
                 return CreatedAtRoute("GetTeam", new {name = createdTeam.Id}, createdTeam);
-            }
             
             throw new Exception("Registration of team failed on save");
         }

@@ -31,11 +31,9 @@ namespace PlayerClub.API.Controllers
 
             var createdPlayer = await _repo.RegisterPlayer(playerToCreate);
 
-            if (await _repo.SaveAll()) {
-                return CreatedAtRoute("GetPlayer", new {id = createdPlayer.Id}, createdPlayer);
-            }
+            await _repo.SaveAll();
 
-            throw new Exception("Registration of player failed on save");
+            return CreatedAtRoute("GetPlayer", new {id = createdPlayer.Id}, createdPlayer);
         }
 
         [HttpGet("{id}", Name = "GetPlayer")]
@@ -46,7 +44,9 @@ namespace PlayerClub.API.Controllers
             if (player == null)
                 return BadRequest("Player doesn't exist.");
 
-            return Ok(player);
+            var playerToReturn = _mapper.Map<PlayerForDetailedDto>(player);
+
+            return Ok(playerToReturn);
         }
 
         [HttpGet()]
