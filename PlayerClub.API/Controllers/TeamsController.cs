@@ -24,6 +24,7 @@ namespace PlayerClub.API.Controllers
         public async Task<IActionResult> Register([FromBody] TeamForRegisterDto teamForRegisterDto)
         {
             teamForRegisterDto.Name = teamForRegisterDto.Name.ToLower();
+            teamForRegisterDto.Coach = teamForRegisterDto.Coach.ToLower();
 
             if (await _repo.TeamExists(teamForRegisterDto.Name))
                 return BadRequest("Team already exists. Pick a new team name.");

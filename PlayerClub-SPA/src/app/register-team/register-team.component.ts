@@ -38,7 +38,7 @@ export class RegisterTeamComponent implements OnInit {
       }, error => {
         console.log(error);
       }, () => {
-        this.router.navigate(['/teams/']);
+        this.router.navigate(['/teams']);
       });
     }
   }
