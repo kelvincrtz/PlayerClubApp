@@ -46,7 +46,7 @@ namespace PlayerClub.API.Data
 
             if (playerParams.Coach != null)
             {
-                players = players.Include(x=>x.Team).Where(x=>x.Team != null && x.Team.Coach == playerParams.Coach);
+                players = players.Include(x=>x.Team).Where(x=>x.Team != null && x.Team.Coach == playerParams.Coach.ToLower());
             }
 
             return await players.ToListAsync();
