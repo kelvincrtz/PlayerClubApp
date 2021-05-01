@@ -37,11 +37,16 @@ namespace PlayerClub.API.Data
         {
             var players =  _context.Players.Include(x => x.Team).AsQueryable();
 
-            if (playerParams.MinAge != 1 || playerParams.MaxAge != 99)
+            if (playerParams.Age != 0)
             {
-                var minDob = DateTime.Today.AddYears(-playerParams.MaxAge - 1);
-                var maxDob = DateTime.Today.AddYears(-playerParams.MinAge);
+                var minDob = DateTime.Today.AddYears(-playerParams.Age - 1);
+                var maxDob = DateTime.Today.AddYears(-playerParams.Age);
                 players = players.Where(x=> x.Birthdate >=minDob && x.Birthdate <= maxDob);
+            }
+
+            if (playerParams.Coach != null)
+            {
+                players = players.Include(x=>x.Team).Where(x=>x.Team != null && x.Team.Coach == playerParams.Coach);
             }
 
             return await players.ToListAsync();

@@ -9,6 +9,7 @@ import { PlayerService } from '../_services/player.service';
 })
 export class PlayerListComponent implements OnInit {
   players: Player[];
+  playerParams: any = {};
 
   constructor(private playerService: PlayerService) { }
 
@@ -23,9 +24,4 @@ export class PlayerListComponent implements OnInit {
       console.log(error);
     });
   }
-
-  viewTeam() {
-
-  }
-
 }

@@ -4,7 +4,7 @@
   
       <h2 class="card-header bg-white text-capitalize">{{team.name}}</h2>
   
-      <div class="card-body">
+      <div *ngIf="team.players.length"  class="card-body">
         <div class="text-dark">
           <p *ngIf="team.players.length == 1" class="card-text">There is {{team.players.length}} player in this team:</p>
           <p *ngIf="team.players.length > 1" class="card-text">There are {{team.players.length}} players in this team:</p>
