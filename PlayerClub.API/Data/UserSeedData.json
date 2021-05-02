@@ -1,0 +1,37 @@
+[
+    {
+      "name": "Curry Cook",
+      "birthdate": "2013-05-16",
+      "height": 63,
+      "weight": 68,
+      "placeOfBirth": "Seigel Street, Ladera"
+    },
+    {
+      "name": "Reyna Abbott",
+      "birthdate": "2016-11-10",
+      "height": 68,
+      "weight": 90,
+      "placeOfBirth": "Benson Avenue, Lumberton"
+    },
+    {
+      "name": "Carlene Wolf",
+      "birthdate": "2018-02-20",
+      "height": 56,
+      "weight": 54,
+      "placeOfBirth": "Raleigh Place, Cumberland"
+    },
+    {
+      "name": "Howe Perez",
+      "birthdate": "2018-12-14",
+      "height": 20,
+      "weight": 29,
+      "placeOfBirth": "Homecrest Court, Harrison"
+    },
+    {
+      "name": "Kathryn Hart",
+      "birthdate": "2011-08-20",
+      "height": 64,
+      "weight": 25,
+      "placeOfBirth": "Hampton Place, Ebro"
+    }
+  ]
